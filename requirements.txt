@@ -1,0 +1,22 @@
+# Core AI frameworks
+langchain
+langchain-core
+langgraph
+langchain-groq
+langchain-openai
+langchain-tavily
+
+# Backend (FastAPI + validation + docs)
+fastapi
+uvicorn
+pydantic
+
+# Frontend (Streamlit UI)
+streamlit
+
+# Environment variables
+python-dotenv
+
+# HTTP & Async requests
+httpx
+requests
