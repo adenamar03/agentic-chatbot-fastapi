@@ -33,7 +33,7 @@ def get_response_from_ai_agent(llm_id, query, allow_search, system_prompt, provi
     elif provider=="OpenAI":
         llm=ChatOpenAI(model=llm_id)
 
-    tools=[TavilySearch(max_results=2)] if allow_search else []  
+    tools = [search_tool] if allow_search else []
     agent = create_react_agent(
     model=llm,
     tools=tools) 
