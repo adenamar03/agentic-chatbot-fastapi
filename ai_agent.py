@@ -27,18 +27,21 @@ from langgraph.prebuilt import create_react_agent
 # Define the system prompt
 system_prompt = "Act as an AI chatbot who is smart and friendly"
 
-agent = create_react_agent(
-    model=groq_llm,
-    tools=[search_tool]
-)
+def get_response_from_ai_agent(llm_id, query, allow_search, system_prompt, provider):
+    if provider=="Groq":
+        llm=ChatGroq(model=llm_id)
+    elif provider=="OpenAI":
+        llm=ChatOpenAI(model=llm_id)
 
-
-query = "Tell me about the trend in crypto markets"
-state = {
+    tools=[TavilySearch(max_results=2)] if allow_search else []  
+    agent = create_react_agent(
+    model=llm,
+    tools=tools) 
+    state = {
     "messages": [
-        SystemMessage(content=system_prompt),  
-        HumanMessage(content=query)  # User query as HumanMessage
+        SystemMessage(content=system_prompt),
+        HumanMessage(content=query)
     ]
-}
-response = agent.invoke(state)
-print(response['messages'][-1].content)
+    }
+    response = agent.invoke(state)
+    return(response['messages'][-1].content)
